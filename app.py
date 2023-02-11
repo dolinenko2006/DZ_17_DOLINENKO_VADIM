@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 class Movie(db.Model):
     __tablename__ = 'movie'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
+    title = db.Column(db.String(255), unique=True)
     description = db.Column(db.String(255))
     trailer = db.Column(db.String(255))
     year = db.Column(db.Integer)
@@ -118,7 +118,7 @@ class MovieView(Resource):
         if not movie:
             return '', 404
         movie_data = request.json
-        movie.title =  movie_data.get('title')
+        movie.title = movie_data.get('title')
         movie.description = movie_data.get('description')
         movie.trailer = movie_data.get('trailer')
         movie.year = movie_data.get('year')
